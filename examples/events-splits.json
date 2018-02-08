@@ -1,0 +1,73 @@
+{
+  "version": "0.1.0",
+  "meet": {
+    "id": "1000",
+    "timezone": "America/New_York",
+    "name": "Doc Smith Invite"
+  },
+  "events": {
+    "individualEvents": [
+      {
+        "id": "1",
+        "name": "Boys 5K",
+        "distance": "5K",
+        "distanceInMillimeters": 5000000,
+        "date": "2018-02-07T23:56:05",
+        "individualResults": [
+          {
+            "id": "20",
+            "athleteId": "50",
+            "place": "1",
+            "mark": "15:56.9",
+            "individualSplits": [
+              {
+                "splitDefinitionId": "split1",
+                "intervalMark": "5:02.5",
+                "cumulativeMark": "5:02.5"
+              },
+              {
+                "splitDefinitionId": "split2",
+                "intervalMark": "5:18.2",
+                "cumulativeMark": "10:20.7"
+              }
+            ]
+          },
+          {
+            "id": "21",
+            "athleteId": "60",
+            "place": "2",
+            "mark": "15:57.8",
+            "individualSplits": [
+              {
+                "splitDefinitionId": "split1",
+                "intervalMark": "5:03.6",
+                "cumulativeMark": "5:03.6"
+              },
+              {
+                "splitDefinitionId": "split2",
+                "intervalMark": "5:19.2",
+                "cumulativeMark": "10:22.8"
+              }
+            ]
+          }
+        ],
+        "splitDefinitions": [
+          {
+            "id": "split1",
+            "name": "1 Mile",
+            "number": "1",
+            "distance": "1 Mile",
+            "distanceInMillimeters": 1609000
+          },
+          {
+            "id": "split2",
+            "name": "2 Mile",
+            "number": "2",
+            "distance": "2 Mile",
+            "distanceInMillimeters": 3218000
+          }
+        ]
+      }
+    ]
+  }
+}

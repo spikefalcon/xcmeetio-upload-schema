@@ -1,0 +1,43 @@
+{
+  "version": "0.1.0",
+  "meet": {
+    "id": "1000",
+    "timezone": "America/New_York",
+    "name": "Doc Smith Invite"
+  },
+  "events": {
+    "individualEvents": [
+      {
+        "id": "1",
+        "name": "Boys 5K",
+        "distance": "5K",
+        "distanceInMillimeters": 5000000,
+        "date": "2018-02-07T23:56:05",
+        "individualResults": [
+          {
+            "id": "20",
+            "athleteId": "50",
+            "place": "1",
+            "mark": "15:56.2",
+            "recordIds": [
+              "record1"
+            ]
+          },
+          {
+            "id": "21",
+            "athleteId": "60",
+            "place": "2",
+            "mark": "15:57.8"
+          }
+        ],
+        "records": [
+          {
+            "id": "record1",
+            "name": "State Record",
+            "mark": "15:57.0"
+          }
+        ]
+      }
+    ]
+  }
+}

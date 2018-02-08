@@ -1,0 +1,531 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "version": "0.1.0",
+  "definitions": {
+    "athlete": {
+      "type": "object",
+      "title": "Athlete",
+      "description": "Represents a single athlete participating in one or more events at this meet.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier that represents this athlete in this meet."
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Represents the athlete's gender. M for male, F for female, X if neither",
+          "enum": [
+            "M",
+            "F",
+            "X"
+          ]
+        },
+        "year": {
+          "type": "string",
+          "description": "Represents the athlete's school year. Could be a numeric grade (e.g. 9, 12) or string grade (FR, SR)"
+        },
+        "age": {
+          "type": "integer",
+          "description": "Represents the athlete's age. Should be an integer number (e.g. 12, 35, 50)."
+        },
+        "town": {
+          "type": "string",
+          "description": "Represents the athlete's town/city."
+        },
+        "state": {
+          "type": "string",
+          "description": "Represents the athlete's state."
+        },
+        "country": {
+          "type": "string",
+          "description": "Represents the athlete's country."
+        },
+        "teamId": {
+          "type": "string",
+          "description": "The id of this athlete's team."
+        },
+        "competitorNumber": {
+          "type": "integer",
+          "description": "The unique identifier given to the athlete for this meet."
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "gender",
+        "teamId"
+      ]
+    },
+    "division": {
+      "type": "object",
+      "title": "Team",
+      "description": "Represents a single division in this meet.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier that represents this team in this meet."
+        },
+        "name": {
+          "type": "string",
+          "description": "The division's name."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "event": {
+      "type": "object",
+      "title": "Event",
+      "description": "Represents an event. Do not use this object. Use individualEvent or relayEvent instead.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier that represents this event in this meet."
+        },
+        "name": {
+          "type": "string",
+          "description": "An arbitrary name for this event (e.g. Boys 5K Run)."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date and time that this event takes place. Ideally, we'd like this in ISO 8601 date and time format (e.g. 2018-02-07T23:56:05)"
+        },
+        "number": {
+          "type": "number",
+          "description": "The event number."
+        },
+        "distance": {
+          "type": "string",
+          "description": "An arbitrary name that represents the distance of this event."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Any notes or explanations associated with this event."
+        },
+        "distanceInMillimeters": {
+          "type": "integer",
+          "description": "Integer representation of distance in millimeters, if applicable (e.g. a distance of 5K is 5000000 millimeters)."
+        },
+        "ageGroup": {
+          "type": "string",
+          "description": "Age Group ages (e.g. 6, 7-8, 20-29)"
+        },
+        "divisionId": {
+          "type": "string",
+          "description": "The id of this event's division."
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "The id of this event's session."
+        },
+        "splitDefinitions": {
+          "type": "array",
+          "description": "If this event has any splits associated with it, list them here.",
+          "items": { "$ref": "#/definitions/splitDefinition" }
+        },
+        "records": {
+          "type": "array",
+          "description": "List event records here.",
+          "items": { "$ref": "#/definitions/record" }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "distance",
+        "distanceInMillimeters"
+      ]
+    },
+    "meet": {
+      "type": "object",
+      "title": "Meet",
+      "description": "Represents a single meet.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier that represents this meet."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of this meet"
+        },
+        "startDate": {
+          "type": "string",
+          "description": "The start date and time of this meet. Ideally, we'd like this in ISO 8601 date and time format (e.g. 2018-02-07T23:56:05)"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "The start date and time of this meet. Ideally, we'd like this in ISO 8601 date and time format (e.g. 2018-02-07T23:56:05)"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "The timezone of this meet. Please use a valid IANA timezone. Full list here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+        },
+        "divisions": {
+          "type": "array",
+          "description": "If this meet has any divisions associated with it, list them here.",
+          "items": { "$ref": "#/definitions/division" }
+        },
+        "sessions": {
+          "type": "array",
+          "description": "If this meet has any sessions associated with it, list them here.",
+          "items": { "$ref": "#/definitions/session" }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "individualEvent": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/event"
+        },
+        {
+          "properties": {
+            "individualResults": {
+              "type": "array",
+              "description": "List event results here in order of place.",
+              "items": { "$ref": "#/definitions/individualResult" }
+            }
+          }
+        }
+      ]
+    },
+    "individualResult": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/result"
+        },
+        {
+          "properties": {
+            "athleteId": {
+              "type": "string",
+              "description": "The id of this athlete that completed this result."
+            },
+            "individualSplits": {
+              "type": "array",
+              "description": "If this result has any splits associated with it, enter them here in the order the splits happened.",
+              "items": { "$ref": "#/definitions/individualSplit" }
+            }
+          },
+          "required": [
+            "athleteId"
+          ]
+        }
+      ]
+    },
+    "individualSplit": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/split"
+        }
+      ]
+    },
+    "record": {
+      "type": "object",
+      "title": "Record",
+      "description": "Represents a race record (e.g. The State Meet Record for the Boys 5K).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The record ID."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date that this record was established. Can be in a date format (e.g. 2015-01-09) or string format (Jan 09, 2015)."
+        },
+        "holder": {
+          "type": "string",
+          "description": "The person, team, or other entity that established the record."
+        },
+        "mark": {
+          "type": "string",
+          "description": "The record mark (e.g. 14:45.00)."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the record (e.g. State Meet Record)."
+        },
+        "integerMark": {
+          "type": "integer",
+          "description": "Integer representation of the mark in milliseconds, if applicable (e.g. a mark of 15:43.34 has an integer mark of 943340)."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "relayEvent": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/event"
+        },
+        {
+          "properties": {
+            "relayResults": {
+              "type": "array",
+              "description": "List event results here in order of place.",
+              "items": { "$ref": "#/definitions/relayResult" }
+            }
+          }
+        }
+      ]
+    },
+    "relayResult": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/result"
+        },
+        {
+          "properties": {
+            "teamId": {
+              "type": "string",
+              "description": "The id of the team that completed this result."
+            },
+            "relaySplits": {
+              "type": "array",
+              "description": "If this result has any splits associated with it, enter them here in the order the splits happened.",
+              "items": { "$ref": "#/definitions/relaySplit" }
+            }
+          },
+          "required": [
+            "teamId"
+          ]
+        }
+      ]
+    },
+    "relaySplit": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/split"
+        },
+        {
+          "properties": {
+            "athleteId": {
+              "type": "string",
+              "description": "If this split relates to an athlete, put his or her ID here."
+            }
+          }
+        }
+      ]
+    },
+    "result": {
+      "type": "object",
+      "title": "Result",
+      "description": "Represents a final result. Do not use this object. Use individualResult or relayResult instead",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The result ID."
+        },
+        "place": {
+          "type": "string",
+          "description": "The individual's place. Commonly an integer (e.g. 10 to represent 10th place."
+        },
+        "mark": {
+          "type": "string",
+          "description": "The result's mark (e.g. 14:45.00, 1:04:59.10)."
+        },
+        "integerMark": {
+          "type": "integer",
+          "description": "Integer representation of the result mark in milliseconds, if applicable (e.g. a mark of 15:43.34 has an integer mark of 943340)."
+        },
+        "points": {
+          "type": "number",
+          "description": "Number that represents points obtained by this result."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Any notes or explanations associated with this result."
+        },
+        "recordIds": {
+          "type": "array",
+          "description": "If this result broke any records, place the appropriate record IDs here"
+        }
+      },
+      "required": [
+        "id",
+        "place",
+        "mark"
+      ]
+    },
+    "session": {
+      "type": "object",
+      "title": "Session",
+      "description": "Represents a meet session. Each session contains events in the order they occur.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier that represents this session."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of this session."
+        },
+        "date": {
+          "type": "string",
+          "description": "The start date and time of this session. Ideally, we'd like this in ISO 8601 date and time format (e.g. 2018-02-07T23:56:05)"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "split": {
+      "type": "object",
+      "title": "Split",
+      "description": "Metadata about an instance of one split definition. Do not use this object. Use individualSplit or relaySplit instead.",
+      "properties": {
+        "splitDefinitionId": {
+          "type": "string",
+          "description": "ID that relates to the appropriate splitDefinition object."
+        },
+        "place": {
+          "type": "string",
+          "description": "The athlete or team's place at this split point."
+        },
+        "intervalMark": {
+          "type": "string",
+          "description": "The interval mark. (e.g., if this individualSplit is the third split point, intervalMark is the time from the second split point to this split point)"
+        },
+        "cumulativeMark": {
+          "type": "string",
+          "description": "The interval mark. (e.g., if this individualSplit is the third split point, cumulativeMark is the time from the start point to this split point)"
+        },
+        "intervalIntegerMark": {
+          "type": "integer",
+          "description": "Integer representation of the intervalMark mark in milliseconds, if applicable (e.g. a mark of 15:43.34 has an integer mark of 943340)."
+        },
+        "cumulativeIntegerMark": {
+          "type": "integer",
+          "description": "Integer representation of the cumulativeMark mark in milliseconds, if applicable (e.g. a mark of 15:43.34 has an integer mark of 943340)."
+        }
+      },
+      "required": [
+        "splitDefinitionId",
+        "intervalMark",
+        "cumulativeMark"
+      ]
+    },
+    "splitDefinition": {
+      "type": "object",
+      "title": "Split Definition",
+      "description": "Metadata about a particular split point.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier that represents this split definition in this meet."
+        },
+        "name": {
+          "type": "string",
+          "description": "An arbitrary name for this split point (e.g. 1 Mile, 5K, Bike Split)"
+        },
+        "number": {
+          "type": "string",
+          "description": "The split number. (e.g. The third split point should be 3. The ninth split point should be 9)."
+        },
+        "distance": {
+          "type": "string",
+          "description": "An arbitrary name that represents the cumulative distance of this split"
+        },
+        "distanceInMillimeters": {
+          "type": "integer",
+          "description": "Integer representation of distance in millimeters, if applicable (e.g. a distance of 5K is 5000000 millimeters)."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "team": {
+      "type": "object",
+      "title": "Team",
+      "description": "Represents a single team or club.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier that represents this team in this meet."
+        },
+        "name": {
+          "type": "string"
+        },
+        "alternateName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  },
+
+  "title": "XCMeet.io Upload Schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "A version number that tells us what version of the schema you are using."
+    },
+    "meet": { "$ref": "#/definitions/meet" },
+    "events": {
+      "type": "object",
+      "properties": {
+        "individualEvents": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/individualEvent" }
+        },
+        "relayEvents": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/relayEvent" }
+        }
+      },
+      "anyOf": [
+        { "required": ["individualEvents"] },
+        { "required": ["relayEvents"] }
+      ]
+
+    },
+    "rosters": {
+      "type": "object",
+      "properties": {
+        "athletes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/athlete" }
+        },
+        "teams": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/team" }
+        }
+      }
+    }
+  },
+  "required": [
+    "version",
+    "meet"
+  ],
+  "anyOf": [
+    { "required": ["events"] },
+    { "required": ["rosters"] }
+  ]
+}

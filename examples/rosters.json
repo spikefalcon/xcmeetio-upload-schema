@@ -1,0 +1,35 @@
+{
+  "version": "0.1.0",
+  "meet": {
+    "id": "1000",
+    "name": "Doc Smith Invite"
+  },
+  "rosters": {
+    "athletes": [
+      {
+        "id": "1",
+        "firstName": "Tim",
+        "lastName": "McManus",
+        "gender": "M",
+        "teamId": "1"
+      },
+      {
+        "id": "1",
+        "firstName": "Josie",
+        "lastName": "Whittaker",
+        "gender": "F",
+        "teamId": "1"
+      }
+    ],
+    "teams": [
+      {
+        "id": "1",
+        "name": "Reservoir High School"
+      },
+      {
+        "id": "1",
+        "name": "St John's High School"
+      }
+    ]
+  }
+}

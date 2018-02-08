@@ -1,0 +1,28 @@
+{
+  "name": "xcmeetio-upload-schema",
+  "version": "0.1.0",
+  "description": "This project describes how meet management systems send roster and result data to XCMeet.io.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spikefalcon/xcmeetio-upload-schema.git"
+  },
+  "author": "Ben Thomas - SpikeFalcon, LLC",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/spikefalcon/xcmeetio-upload-schema/issues"
+  },
+  "homepage": "https://github.com/spikefalcon/xcmeetio-upload-schema#readme",
+  "scripts": {
+    "test": "jasmine",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "test"
+  ],
+  "devDependencies": {
+    "ajv": "^6.1.1",
+    "jasmine": "^3.0.0",
+    "pre-commit": "^1.2.2"
+  }
+}
