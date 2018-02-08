@@ -13,13 +13,13 @@ To see examples of valid JSON using this schema, click on the links below.
 
 ### Examples
 
-* rosters.json shows how to structure athletes and teams. It's important for timers
+* [rosters.json](./examples/rosters.json) shows how to structure athletes and teams. It's important for timers
 to send rosters to XCMeet.io prior to the meet. Doing so allows viewers to sign up
 for notifications.
-* events-simple.json shows how to structure events and results.
-* events-splits.json shows how to structure events with results and splits.
-* events-records.json shows how to structure events with results and records.
-* events-sessions.json shows how to structure events that belong to sessions.
+* [events-simple.json](./examples/events-simple.json) shows how to structure events and results.
+* [events-splits.json](./examples/events-splits.json) shows how to structure events with results and splits.
+* [events-records.json](./examples/events-records.json) shows how to structure events with results and records.
+* [events-sessions.json](./examples/events-sessions.json) shows how to structure events that belong to sessions.
 
 ### Validate JSON
 
